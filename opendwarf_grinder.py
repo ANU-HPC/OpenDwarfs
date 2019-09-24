@@ -1,14 +1,10 @@
-#/usr/bin/env python
+#!/usr/bin/env python
 from opendwarf_miner_utils import *
 
 from sys import argv,exit
 selected_applications = None
 
-oclgrind = ''
-if os.environ['OCLGRIND_BIN'] == '':
-    oclgrind = 'oclgrind'
-else:
-    oclgrind = os.environ['OCLGRIND_BIN']
+oclgrind = os.getenv('OCLGRIND_BIN', 'oclgrind')
 
 if len(argv) == 2:
     selected_applications = str(argv[1])
