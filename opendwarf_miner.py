@@ -8,9 +8,9 @@ from sys import argv,exit
 selected_device = 0 
 selected_applications = None
 selected_problem_sizes = ['tiny',
-                          #'small',
-                          #'medium',
-                          #'large',
+                          'small',
+                          'medium',
+                          'large',
                           ]
 selected_iterations = 50
 if len(argv) == 5:
@@ -222,20 +222,20 @@ selected_papi_envs.extend([x for x in papi_envs if x['name'] == 'time'])
 if selected_applications == None:
     selected_applications = [
                              ##all problem sizes:
-                             #kmeans,
-                             #lud,
-                             #csr,
-                             #fft,
-                             #srad,
-                             #crc,
-                             #bfs,
-                             #nw,
+                             kmeans,
+                             lud,
+                             csr,
+                             fft,
+                             srad,
+                             crc,
+                             bfs,
+                             nw,
                              dwt,# <- debug, broken on the gold?
                              ##small problem size only:
-                             #gem,
-                             #nqueens,
-                             #hmm,
-                             #swat,
+                             gem,
+                             nqueens,
+                             hmm,
+                             swat,
                             ]
 else:
     exec("%s = [%s]"%("selected_applications",selected_applications))
@@ -254,19 +254,22 @@ selected_device = device_parameters
 for application in selected_applications:
     for papi_env in selected_papi_envs:
         for problem_size in selected_problem_sizes:
-            all_good = RunApplicationWithArguments(application,
-                                                   application[str(problem_size)],
-                                                   selected_device,
-                                                   selected_iterations,
-                                                   papi_env['parameters'])
-            if all_good:
-                StoreRun(application,
-                        'results/'+device_name+'_'+application['alias']+'_'+problem_size+'_'+papi_env['name'])
-            else:
-                import ipdb
-                ipdb.set_trace()
-                #import sys
-                #sys.exit()
+            try:
+                all_good = RunApplicationWithArguments(application,
+                                                       application[str(problem_size)],
+                                                       selected_device,
+                                                       selected_iterations,
+                                                       papi_env['parameters'])
+                if all_good:
+                    StoreRun(application,
+                            'results/'+device_name+'_'+application['alias']+'_'+problem_size+'_'+papi_env['name'])
+                else:
+                    import ipdb
+                    ipdb.set_trace()
+                    #import sys
+                    #sys.exit()
+            except:
+                print("No problem of this size")
 
 ##kmeans strider: increase the size of feature space to find to cache spillover sizes
 #feature_sizes = [256,2048,65536,524288]
