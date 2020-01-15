@@ -109,7 +109,7 @@ hmm = {'name':'bwa_hmm',
 #TODO: add 2 second loop logic to the following, then choose problem sizes
 tdm = {'name':'tdm',
        'alias':'tdm',
-       'default':'../test/finite-state-machine/tdm/sim-64-size200.csv ../test/finite-state-machine/tdm/ivl.txt ../test/finite-state-machine/tdm/30-episodes.txt 128',
+       'small':'../test/finite-state-machine/tdm/sim-64-size200.csv ../test/finite-state-machine/tdm/ivl.txt ../test/finite-state-machine/tdm/30-episodes.txt 128',
        'full name':'Temporal Data Mining'}
 nqueens = {'name':'nqueens',
            'alias':'nqueens',
